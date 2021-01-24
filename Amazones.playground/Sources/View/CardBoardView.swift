@@ -9,6 +9,7 @@ public class CardBoardView: UIView {
     public override init(frame: CGRect) {
         let background = UIImageView(image: UIImage(named: "backgroundCards.png"))
         
+        //Definindo o fluxo da CollectionView
         flowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame:frame , collectionViewLayout: flowLayout)
         collectionView.register(CardView.self, forCellWithReuseIdentifier: CardView.description())
@@ -23,6 +24,7 @@ public class CardBoardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //Definindo as medidas de cada célula
     public override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = self.frame
@@ -31,4 +33,17 @@ public class CardBoardView: UIView {
         flowLayout.scrollDirection = .vertical
     }
     
+    //Vira e depois (des)vira todas as cartas
+    public func flipAllCards(complete: @escaping (Bool) -> Void) {
+        
+        for cell in collectionView.visibleCells {
+            if let cardView = cell as? CardView {
+                cardView.flipToFront(complete: {_ in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        cardView.flipToBack(complete: complete)
+                    }
+                })
+            }
+        }
+    }
 }

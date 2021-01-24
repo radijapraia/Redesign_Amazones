@@ -1,10 +1,19 @@
 import Foundation
 import UIKit
 
+protocol CardViewDelegate: class {
+    func cardClicked()
+    func willFlipCard(card: CardView)
+}
 
 public class CardView: UICollectionViewCell {
+    
     var cardButton: UIButton
     public var frontCard: String?
+    
+    var delegate: CardViewDelegate?
+    
+    public var flipped = false
     
     public override init(frame: CGRect) {
         
@@ -25,17 +34,27 @@ public class CardView: UICollectionViewCell {
     }
     
     @objc private func flipActionCard(sender: UIButton!) {
-        flipToFront()
+        delegate?.willFlipCard(card: self)
     }
     
-    private func flipToFront() {
+    public func flipToFront(complete: @escaping (Bool) -> Void) {
         UIView.transition(
             with: cardButton,
             duration: 0.5,
             options: .transitionFlipFromRight,
             animations: {
                 self.cardButton.setBackgroundImage(UIImage(named: self.frontCard!), for: .normal)
-            }, completion: {_ in print("oqwei")})
+            }, completion:complete)
+    }
+    
+    public func flipToBack(complete: @escaping (Bool) -> Void) {
+        UIView.transition(
+            with: cardButton,
+            duration: 0.5,
+            options: .transitionFlipFromRight,
+            animations: {
+                self.cardButton.setBackgroundImage(UIImage(named: "backCard"), for: .normal)
+            }, completion: complete)
     }
 }
 
