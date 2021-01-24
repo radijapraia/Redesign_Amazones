@@ -9,7 +9,7 @@ protocol CardViewDelegate: class {
 public class CardView: UICollectionViewCell {
     
     var cardButton: UIButton
-    public var frontCard: String?
+    public var card: RegionalSlang?
     
     var delegate: CardViewDelegate?
     
@@ -43,7 +43,7 @@ public class CardView: UICollectionViewCell {
             duration: 0.5,
             options: .transitionFlipFromRight,
             animations: {
-                self.cardButton.setBackgroundImage(UIImage(named: self.frontCard!), for: .normal)
+                self.cardButton.setBackgroundImage(UIImage(named: (self.card?.card)!), for: .normal)
             }, completion:complete)
     }
     

@@ -2,4 +2,5 @@
   
 import PlaygroundSupport
 
-PlaygroundPage.current.liveView = MemoryGameController()
+
+PlaygroundPage.current.liveView = StartViewController()

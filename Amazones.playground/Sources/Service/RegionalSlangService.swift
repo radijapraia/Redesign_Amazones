@@ -13,7 +13,7 @@ public let regionalSlangList: [RegionalSlang] = [
                   namePtBr: "in portugese: Caixa prego.",
                   meaning: "Meaning: a place that is far away.",
                   photo: "nailBox",
-                  audio: "caixaPrego",
+                  audio: "caixaPrego.wav",
                   card: "cardNailBox.png"),
     RegionalSlang(name: "Take your snack",
                   namePtBr: "in portugese: Pega a tua merenda!",
