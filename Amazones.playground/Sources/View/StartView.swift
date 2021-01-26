@@ -15,17 +15,30 @@ public class StartView: UIView {
     public override init(frame: CGRect) {
         
         backgroundStart = UIImageView(image: UIImage(named: "backgroundStart.png"))
-        titleStart = UILabel(frame: CGRect(x: 66, y: 95, width: 468, height: 77))
+        
+        titleStart = UILabel(frame: CGRect(x: 0, y: 90, width: 600, height: 77))
         titleStart.textColor = textColor1C6033
-        titleStart.text = "Welcome to 'Amazonês'!"
-        subtitleStart = UILabel(frame: CGRect(x: 25, y: 156, width: 550, height: 106))
+        titleStart.text = "Welcome to \"Amazonês\"!"
+        titleStart.font = UIFont.boldSystemFont(ofSize:45)
+        titleStart.textAlignment = NSTextAlignment.center
+        
+        subtitleStart = UILabel(frame: CGRect(x: 0, y: 172, width: 600, height: 110))
         subtitleStart.textColor = textColor385E45
-        subtitleStart.text = "Enjoy the experience of knowing a little about the regional linguistic variations of Amazonas."
-        imageStart = UIImageView(frame: CGRect(x: 63, y: 280, width: 456, height: 444))
+        subtitleStart.text = "Enjoy the experience of knowing a\nlittle about the regional\n linguistic variations of Amazonas."
+        subtitleStart.numberOfLines = 3
+        subtitleStart.font = UIFont.systemFont(ofSize:28)
+        subtitleStart.textAlignment = NSTextAlignment.center
+
+        imageStart = UIImageView(frame: CGRect(x: 63, y: 298, width: 460, height: 444))
         imageStart.image = UIImage(named: "map.png")
-        psAmazonesStart = UILabel(frame: CGRect(x: 66, y: 761, width: 468, height: 77))
+        
+        psAmazonesStart = UILabel(frame: CGRect(x: 0, y: 769, width: 600, height: 77))
         psAmazonesStart.textColor = textColor385E45
-        psAmazonesStart.text = "P.S.: Amazonês is kind of a dialect of expressions we use in Amazonas."
+        psAmazonesStart.text = "P.S.: Amazonês is kind of a dialect of\nexpressions we use in Amazonas."
+        psAmazonesStart.numberOfLines = 2
+        psAmazonesStart.font = UIFont.italicSystemFont(ofSize: 23)
+        psAmazonesStart.textAlignment = NSTextAlignment.center
+        
         startButton = UIButton(frame: CGRect(x: 273, y: 890, width: 114, height: 32))
         startButton.setBackgroundImage(UIImage(named: "buttonStart.png"), for: .normal)
         

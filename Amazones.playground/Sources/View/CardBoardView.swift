@@ -15,7 +15,7 @@ public class CardBoardView: UIView {
         collectionView.register(CardView.self, forCellWithReuseIdentifier: CardView.description())
         collectionView.backgroundColor = .clear
         
-        super.init(frame: CGRect(x: 0, y: 60, width: 600, height: 994))
+        super.init(frame: CGRect(x: 0, y: 0, width: 600, height: 994))
         self.addSubview(background)
         self.addSubview(collectionView)
     }
@@ -28,7 +28,7 @@ public class CardBoardView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = self.frame
-        flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
+        flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12 )
         flowLayout.itemSize = CGSize(width: 136, height: 210)
         flowLayout.scrollDirection = .vertical
     }

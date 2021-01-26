@@ -4,7 +4,7 @@ import AVFoundation
 
 public class StartViewController: UIViewController {
     
-    var audioPlayerStart: AVAudioPlayer?
+    public var audioPlayerStart: AVAudioPlayer?
     
     //Chamando a View
     public override func loadView() {
@@ -24,15 +24,16 @@ public class StartViewController: UIViewController {
         let memoryGameController = MemoryGameController()
         memoryGameController.modalPresentationStyle = .fullScreen
         self.present(memoryGameController, animated: true, completion: nil)
-        self.audioPlayerStart?.stop()
+//        self.audioPlayerStart?.stop()
     }
     
-    private func musicPlay() {
+    public func musicPlay() {
         let musicUrl = URL(fileURLWithPath: Bundle.main.path(forResource: "Josefina.mp3", ofType: nil)!)
         
         do {
             self.audioPlayerStart = try AVAudioPlayer(contentsOf: musicUrl)
             self.audioPlayerStart?.numberOfLoops = -1
+            self.audioPlayerStart?.volume = 0.1
             self.audioPlayerStart?.play()
         } catch {
             print("Error in playing music \(error.localizedDescription)")

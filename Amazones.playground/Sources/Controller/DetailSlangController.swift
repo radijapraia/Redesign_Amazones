@@ -24,7 +24,8 @@ public class DetailSlangController: UIViewController {
         detailView.titleSlang.text = slang?.name
         detailView.ptBrSlang.text = slang?.namePtBr
         detailView.meaningSlang.text = slang?.meaning
-        detailView.imageSlang.image = UIImage(named: slang!.photo)
+        detailView.setPhoto(photoName: slang!.photo)
+
         detailView.closeButton.addAction(UIAction(title: "closeButton") {(action) in self.dismiss(animated: true, completion: nil)
         }, for: .touchUpInside)
         
@@ -36,7 +37,6 @@ public class DetailSlangController: UIViewController {
         
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: musicUrl)
-            //            self.audioPlayer?.numberOfLoops = -1
             self.audioPlayer?.play()
         } catch {
             print("Error in playing music \(error.localizedDescription)")

@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AVFoundation
 
 protocol CardViewDelegate: class {
     func cardClicked()
@@ -16,8 +17,8 @@ public class CardView: UICollectionViewCell {
     public var flipped = false
     
     public override init(frame: CGRect) {
-        
-        cardButton = UIButton(frame: CGRect(x: 0, y: 0, width: 136, height: 210))
+        //Centralizando os cards
+        cardButton = UIButton(frame: CGRect(x: 0, y: 58, width: 136, height: 210))
         cardButton.setBackgroundImage(UIImage(named: "backCard.png"), for: .normal)
         
         super.init(frame: frame)
@@ -36,6 +37,7 @@ public class CardView: UICollectionViewCell {
     @objc private func flipActionCard(sender: UIButton!) {
         delegate?.willFlipCard(card: self)
     }
+    
     
     public func flipToFront(complete: @escaping (Bool) -> Void) {
         UIView.transition(

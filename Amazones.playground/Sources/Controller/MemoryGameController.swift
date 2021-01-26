@@ -1,8 +1,11 @@
 import Foundation
 import UIKit
+import AVFoundation
 
 //Controllador vai trabalhar com a View e o Model
 public class MemoryGameController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CardViewDelegate {
+    
+    var audioFlipCard: AVAudioPlayer?
     
     var cards: [RegionalSlang]
     
@@ -13,7 +16,7 @@ public class MemoryGameController: UIViewController, UICollectionViewDelegate, U
     var firstLoad = false
     
     var count = 0
-
+    
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         cards = regionalSlangList + regionalSlangList
         cards = cards.shuffled()
@@ -43,7 +46,7 @@ public class MemoryGameController: UIViewController, UICollectionViewDelegate, U
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if count == 8 {
-            self.showFinishOne()
+            self.showFinish()
         }
         
         if firstLoad == true {
@@ -55,10 +58,10 @@ public class MemoryGameController: UIViewController, UICollectionViewDelegate, U
         firstLoad = true
     }
     
-    public func showFinishOne() {
-        let finishOneController = FinishOneController()
-        finishOneController.modalPresentationStyle = .fullScreen
-        self.present(finishOneController, animated: true, completion: nil)
+    public func showFinish() {
+        let finishController = FinishController()
+        finishController.modalPresentationStyle = .fullScreen
+        self.present(finishController, animated: true, completion: nil)
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -108,9 +111,11 @@ extension MemoryGameController {
         if cardOne == nil {
             cardOne = card
             card.flipToFront(complete: {_ in self.canChoose = true})
+            audioFlip()
         } else {
             cardTwo = card
             card.flipToFront(complete: {_ in})
+            audioFlip()
             if cardOne?.card?.card == cardTwo?.card?.card {
                 cardOne = nil
                 cardTwo = nil
@@ -121,6 +126,7 @@ extension MemoryGameController {
                 //pra quando não der match
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.cardOne?.flipToBack(complete: {_ in})
+                    self.audioFlip()
                     self.cardOne?.flipped = false
                     self.cardOne = nil
                     self.cardTwo?.flipToBack(complete: {_ in})
@@ -128,9 +134,17 @@ extension MemoryGameController {
                     self.cardTwo = nil
                     self.canChoose = true
                 }
-                
             }
         }
+    }
+    private func audioFlip() {
+        let flipUrl = URL(fileURLWithPath: Bundle.main.path(forResource: "flip.mp3", ofType: nil)!)
         
+        do {
+            self.audioFlipCard = try AVAudioPlayer(contentsOf: flipUrl)
+            self.audioFlipCard?.play()
+        } catch {
+            print("Error in playing music \(error.localizedDescription)")
+        }
     }
 }
